@@ -1,12 +1,42 @@
 import random, hashlib, os, uuid, time, json
 from datetime import datetime
 
+log_file = "";
+
+def generate_file_timestamp() -> str:
+    return datetime.now().strftime("%Y-%h-%d_%H-%M-%S")
+
+
+def generate_manifest_timestamp() -> str:
+    return datetime.now().strftime("%Y-%h-%d %H:%M:%S")
+
+
+def log_error(log_text: str):
+    log_string = "[Error!] " + generate_manifest_timestamp() + ": " + log_text + "\n"
+    print(log_string)
+    with open("log.txt", "w") as file:
+        file.write(log_string)
+
+
+def log_warning(log_text: str):
+    log_string = "[Warning] " + generate_manifest_timestamp() + ": " + log_text + "\n"
+    print(log_string)
+    with open("log.txt", "w") as file:
+        file.write(log_string)
+
+def log_message(log_text: str):
+    log_string = "[Message] " + generate_manifest_timestamp() + ": " + log_text + "\n"
+    print(log_string)
+    with open("log.txt", "w") as file:
+        file.write(log_string)
+
+
 # Get data folder from ENV
 data_dir: str = os.environ.get("DATA_DIR")
 if(data_dir == None):
     data_dir = "./data"
 data_dir += "/"
-print(f"Data output dir: {data_dir}")
+log_message(f"Data output dir: {data_dir}")
 
 def generate_data_row(column_count: int, range_max: int = 10000, range_min: int = 0) -> str:
     # Catch edge cases
@@ -35,12 +65,6 @@ def generate_hash(content: str) -> str:
     return str(hash.hexdigest())
 
 
-def generate_file_timestamp() -> str:
-    return datetime.now().strftime("%Y-%h-%d_%H-%M-%S")
-
-
-def generate_manifest_timestamp() -> str:
-    return datetime.now().strftime("%Y-%h-%d %H:%M:%S")
 
 
 def generate_manifest(files: list[str]) -> dict:
@@ -85,16 +109,18 @@ def loop():
         write_manifest(file_list)
 
         sleep_timer = random.randrange(1, 3600)
-        print(f"[{generate_manifest_timestamp()}] Generating next batch in {sleep_timer} seconds.")
+        log_message(f"Generating next batch in {sleep_timer} seconds.")
         time.sleep(sleep_timer)
 
 def main():
+    global log_file
+    log_file = open("log.txt", "w")
     try:
+        log_message("Starting generator")
         loop()
     except KeyboardInterrupt:
-        print("Exitting...")
+        log_message("Exitting...")
         return 0
-
 
 if __name__ == "__main__":
     main()
