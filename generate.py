@@ -1,11 +1,8 @@
 import random, hashlib, os, uuid, time, json
 from datetime import datetime
 
-log_file = "";
-
 def generate_file_timestamp() -> str:
     return datetime.now().strftime("%Y-%h-%d_%H-%M-%S")
-
 
 def generate_manifest_timestamp() -> str:
     return datetime.now().strftime("%Y-%h-%d %H:%M:%S")
@@ -14,20 +11,19 @@ def generate_manifest_timestamp() -> str:
 def log_error(log_text: str):
     log_string = "[Error!] " + generate_manifest_timestamp() + ": " + log_text + "\n"
     print(log_string)
-    with open("log.txt", "w") as file:
+    with open("./log.txt", "w") as file:
         file.write(log_string)
-
 
 def log_warning(log_text: str):
     log_string = "[Warning] " + generate_manifest_timestamp() + ": " + log_text + "\n"
     print(log_string)
-    with open("log.txt", "w") as file:
+    with open("./log.txt", "w") as file:
         file.write(log_string)
 
 def log_message(log_text: str):
     log_string = "[Message] " + generate_manifest_timestamp() + ": " + log_text + "\n"
     print(log_string)
-    with open("log.txt", "w") as file:
+    with open("./log.txt", "w") as file:
         file.write(log_string)
 
 
@@ -113,8 +109,6 @@ def loop():
         time.sleep(sleep_timer)
 
 def main():
-    global log_file
-    log_file = open("log.txt", "w")
     try:
         log_message("Starting generator")
         loop()
