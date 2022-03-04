@@ -26,11 +26,6 @@ class Batch:
 
 		return "";
  
-	def get_first_run_id(self):
-		if len(self.entries) > 0:
-			return self.entries[0].run_id
-		return 0;
- 
 	def get_final_run_id(self):
 		if len(self.entries) > 0:
 			return self.entries[-1].run_id
@@ -42,4 +37,3 @@ class Batch:
 	def write_file(self, output_dir: str) -> None:
 		with open(f"{output_dir}/{self.get_batch_name()}.csv", "w") as file:
 			file.write(self.get_content())
-		
