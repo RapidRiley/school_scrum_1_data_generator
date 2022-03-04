@@ -1,9 +1,9 @@
-import os, uuid, time, json
-from datetime import datetime, timedelta
+import os
 
 from log import Log
 from manifest import Manifest
 from batch import Batch
+from hash import Hash
 
 # Get data folder from ENV
 data_dir: str = os.environ.get("DATA_DIR")
@@ -50,9 +50,13 @@ def main():
 		batch.get_final_run_id()
 	)
 
+	# Create hash
+	hash = Hash(batch.get_content())
+
 	# Write files
 	batch.write_file(data_dir)
 	manifest.write_file(data_dir)
+	hash.write_file(data_dir, batch.get_batch_name())
  
 if __name__ == "__main__":
 	main()
