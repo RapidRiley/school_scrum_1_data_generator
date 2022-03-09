@@ -16,9 +16,9 @@ class Time:
  
 class Start(Time):
 	def get_headers() -> str:
-		return "Start_Year, Start_Month, Start_Day, Start_Hour, Start_Min, Start_Sec"
+		return "Start_Year, Start_Month, Start_Day, Start_Hour, Start_Min, Start_Sec, Start_MSec"
  
  
 class End(Time):
 	def get_headers() -> str:
-		return "End_Year, End_Month, End_Day, End_Hour, End_Min, End_Sec"
+		return "End_Year, End_Month, End_Day, End_Hour, End_Min, End_Sec, End_MSec"

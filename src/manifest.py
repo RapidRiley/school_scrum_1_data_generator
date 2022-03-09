@@ -4,10 +4,9 @@ import hashlib,uuid, time, json
 from batch import Batch
 
 class Manifest:
-	def __init__(self, batch_list: list[str], final_run_id: int):
+	def __init__(self, batch_list: list[str]):
 		self.uuid: str = str(uuid.uuid4())
 		self.creation_time: datetime = datetime.now()
-		self.final_run_id: int = final_run_id
 		self.batch_names: list[str] = batch_list
  
 	def generate_timestamp(self) -> str:
@@ -17,7 +16,6 @@ class Manifest:
 		return {
 			"uuid": self.uuid,
 			"generated_on": self.generate_timestamp(),
-			"final_run_id": self.final_run_id,
 			"batches": self.batch_names
 		}
 

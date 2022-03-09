@@ -3,16 +3,13 @@ from datetime import datetime
 from entry import Entry
 
 class Batch:
-	def __init__(self, initial_run_id: int = None) -> None:
+	def __init__(self) -> None:
 		self.creation_time = datetime.now()
-		
-		run_id = initial_run_id
 
 		# Generate entries
 		self.entries: list[Entry] = []
 		for i in range(randrange(1, 1500)):
-			self.entries.append(Entry(run_id))
-			run_id += 1
+			self.entries.append(Entry())
  
 	def get_file_timestamp(self) -> str:
 		return self.creation_time.strftime("%Y-%h-%d_%H-%M-%S")
