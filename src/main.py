@@ -8,7 +8,7 @@ from hash import Hash
 # Get data folder from ENV
 data_dir: str = os.environ.get("DATA_DIR")
 if(data_dir == None):
-	data_dir = "./data"
+	data_dir = "/data"
 Log.message(f"Data output dir: {data_dir}")
 
 
