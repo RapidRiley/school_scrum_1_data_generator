@@ -1,7 +1,5 @@
 $PORT=4000
 
-docker volume create --name cern_data
-
 docker build -t school_1_scrum_data_generator `
     --build-arg DATA_DIR="/data" `
     --build-arg SERVER_PORT=${PORT} .
